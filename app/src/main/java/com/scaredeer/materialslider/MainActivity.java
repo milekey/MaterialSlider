@@ -10,7 +10,7 @@ import com.google.android.material.slider.Slider;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    private static final int MAX_INDEX = 99;
+    private static final int MAX_INDEX = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
