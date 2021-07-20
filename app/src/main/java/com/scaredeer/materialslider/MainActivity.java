@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.slider.Slider;
 
@@ -29,5 +30,8 @@ public class MainActivity extends AppCompatActivity {
         buttonLeft.setOnClickListener(view -> slider.setValue(Math.max(0, slider.getValue() - 0.1f)));
         Button buttonRight = findViewById(R.id.buttonRight);
         buttonRight.setOnClickListener(view -> slider.setValue(Math.min(slider.getValue() + 0.1f, 1.0f)));
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.toolbar);
     }
 }

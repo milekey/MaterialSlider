@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="←"
-        app:layout_constraintBottom_toTopOf="@id/discreteSlider"
+        app:layout_constraintBottom_toTopOf="@id/toolbar"
         app:layout_constraintEnd_toStartOf="@id/buttonCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/slider" />
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CENTER"
-        app:layout_constraintBottom_toTopOf="@id/discreteSlider"
+        app:layout_constraintBottom_toTopOf="@id/toolbar"
         app:layout_constraintEnd_toStartOf="@id/buttonRight"
         app:layout_constraintStart_toEndOf="@id/buttonLeft"
         app:layout_constraintTop_toBottomOf="@id/slider" />
@@ -54,22 +54,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="→"
-        app:layout_constraintBottom_toTopOf="@id/discreteSlider"
+        app:layout_constraintBottom_toTopOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/buttonCenter"
         app:layout_constraintTop_toBottomOf="@id/slider" />
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/discreteSlider"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:value="50"
-        android:valueFrom="0"
-        android:valueTo="100"
-        android:stepSize="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonCenter" />
+        app:layout_constraintTop_toBottomOf="@id/buttonCenter">
 
+        <com.google.android.material.slider.Slider
+            android:id="@+id/discreteSlider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stepSize="1"
+            android:value="25"
+            android:valueFrom="0"
+            android:valueTo="50" />
+    </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>
