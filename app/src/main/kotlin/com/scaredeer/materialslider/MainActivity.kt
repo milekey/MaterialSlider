@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.slider.Slider
 import com.scaredeer.materialslider.databinding.MainActivityBinding
+import java.util.Locale
 import kotlin.math.roundToInt
 
-class MainActivity : AppCompatActivity() {
+private const val MAX_INDEX = 100
 
-    companion object {
-        private const val MAX_INDEX = 100
-    }
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,20 +17,21 @@ class MainActivity : AppCompatActivity() {
         val binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val slider = findViewById<Slider>(R.id.slider)
-        slider.addOnChangeListener(
+        binding.slider.addOnChangeListener(
             Slider.OnChangeListener { slider1: Slider?, value: Float, fromUser: Boolean ->
-                binding.textView.text = String.format("%.2f", value)
+                binding.textView.text = String.format(Locale.JAPAN, "%.2f", value)
             }
         )
-        slider.setLabelFormatter { value: Float -> (MAX_INDEX * value).roundToInt().toString() }
+        binding.slider.setLabelFormatter {
+            value: Float -> (MAX_INDEX * value).roundToInt().toString()
+        }
 
-        binding.buttonCenter.setOnClickListener { slider.value = 0.5f }
+        binding.buttonCenter.setOnClickListener { binding.slider.value = 0.5f }
         binding.buttonLeft.setOnClickListener {
-            slider.value = 0f.coerceAtLeast(slider.value - 0.1f)
+            binding.slider.value = 0f.coerceAtLeast(binding.slider.value - 0.1f)
         }
         binding.buttonRight.setOnClickListener {
-            slider.value = (slider.value + 0.1f).coerceAtMost(1.0f)
+            binding.slider.value = (binding.slider.value + 0.1f).coerceAtMost(1.0f)
         }
 
         binding.toolbar.inflateMenu(R.menu.toolbar)
