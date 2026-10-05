@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemGestures
+import androidx.compose.foundation.layout.safeGestures
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -62,8 +62,10 @@ fun SliderSample() {
                             .fillMaxWidth(0.5f)
                             .padding(
                                 start =
-                                    WindowInsets.systemGestures.asPaddingValues()
-                                        .calculateStartPadding(LocalLayoutDirection.current),
+                                    WindowInsets.safeGestures.asPaddingValues()
+                                        .calculateStartPadding(
+                                            LocalLayoutDirection.current
+                                        ),
                             )
                     )
                     IconButton(onClick = {
@@ -90,8 +92,10 @@ fun SliderSample() {
                         modifier = Modifier
                             .padding(
                                 end =
-                                    WindowInsets.systemGestures.asPaddingValues()
-                                        .calculateEndPadding(LocalLayoutDirection.current)
+                                    WindowInsets.safeGestures.asPaddingValues()
+                                        .calculateEndPadding(
+                                            LocalLayoutDirection.current
+                                        )
                             )
                     ) {
                         Icon(
@@ -120,10 +124,10 @@ fun SliderSample() {
                 onValueChange = { sliderPosition = it },
                 modifier = Modifier.padding(
                     start =
-                        WindowInsets.systemGestures.asPaddingValues()
+                        WindowInsets.safeGestures.asPaddingValues()
                             .calculateStartPadding(LocalLayoutDirection.current),
                     end =
-                        WindowInsets.systemGestures.asPaddingValues()
+                        WindowInsets.safeGestures.asPaddingValues()
                             .calculateEndPadding(LocalLayoutDirection.current)
                 )
             )
