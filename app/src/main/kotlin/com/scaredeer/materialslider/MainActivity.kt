@@ -8,13 +8,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeGestures
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -29,7 +29,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.scaredeer.materialslider.ui.theme.AppTheme
@@ -60,12 +59,8 @@ fun SliderSample() {
                         onValueChange = { sliderPosition = it },
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
-                            .padding(
-                                start =
-                                    WindowInsets.safeGestures.asPaddingValues()
-                                        .calculateStartPadding(
-                                            LocalLayoutDirection.current
-                                        ),
+                            .windowInsetsPadding(
+                                WindowInsets.safeGestures.only(WindowInsetsSides.Start)
                             )
                     )
                     IconButton(onClick = {
@@ -89,14 +84,9 @@ fun SliderSample() {
                             sliderPosition =
                                 (sliderPosition + 0.1f).coerceAtMost(1.0f)
                         },
-                        modifier = Modifier
-                            .padding(
-                                end =
-                                    WindowInsets.safeGestures.asPaddingValues()
-                                        .calculateEndPadding(
-                                            LocalLayoutDirection.current
-                                        )
-                            )
+                        modifier = Modifier.windowInsetsPadding(
+                                WindowInsets.safeGestures.only(WindowInsetsSides.End)
+                        )
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_forward_24),
@@ -122,13 +112,8 @@ fun SliderSample() {
             Slider(
                 value = sliderPosition,
                 onValueChange = { sliderPosition = it },
-                modifier = Modifier.padding(
-                    start =
-                        WindowInsets.safeGestures.asPaddingValues()
-                            .calculateStartPadding(LocalLayoutDirection.current),
-                    end =
-                        WindowInsets.safeGestures.asPaddingValues()
-                            .calculateEndPadding(LocalLayoutDirection.current)
+                modifier = Modifier.windowInsetsPadding(
+                    WindowInsets.safeGestures.only(WindowInsetsSides.Horizontal)
                 )
             )
             Row(modifier = Modifier) {

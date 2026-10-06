@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId = "com.scaredeer.materialslider"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 37
         versionCode = 1
-        versionName = "20261005"
+        versionName = "20261006"
     }
 
     buildTypes {
