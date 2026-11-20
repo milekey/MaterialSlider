@@ -6,7 +6,9 @@ plugins {
 android {
     namespace = "com.scaredeer.materialslider"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {
@@ -14,7 +16,7 @@ android {
         minSdk = 24
         targetSdk = 37
         versionCode = 1
-        versionName = "20261110"
+        versionName = "20261120"
     }
 
     buildTypes {
