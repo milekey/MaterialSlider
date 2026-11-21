@@ -1,9 +1,7 @@
-*.iml
+.DS_Store
+.git
 .gradle
 .idea
-.DS_Store
+.kotlin
 build
-captures
-.externalNativeBuild
-.cxx
 local.properties
