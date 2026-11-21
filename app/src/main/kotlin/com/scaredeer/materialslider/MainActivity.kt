@@ -22,6 +22,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -40,23 +41,37 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                SliderSample()
+                PairedSlider()
             }
         }
     }
 }
 
 @Composable
-fun SliderSample() {
-    var sliderPosition by rememberSaveable { mutableFloatStateOf(0.5f) }
+fun PairedSlider() {
+    var commonValue by rememberSaveable { mutableFloatStateOf(0.5f) }
+
+    val analogueSliderState = rememberSliderState(
+        value = commonValue,
+        trackRange = 0f..1f
+    )
+    val discreteSliderState = rememberSliderState(
+        value = commonValue,
+        trackRange = 0f..1f,
+        steps = 9
+    )
 
     Scaffold(
         bottomBar = {
             BottomAppBar(
                 actions = {
                     Slider(
-                        value = sliderPosition,
-                        onValueChange = { sliderPosition = it },
+                        state = discreteSliderState,
+                        onValueChange = {
+                            commonValue = it
+                            analogueSliderState.value = commonValue
+                            discreteSliderState.value = commonValue
+                        },
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
                             .windowInsetsPadding(
@@ -64,25 +79,31 @@ fun SliderSample() {
                             )
                     )
                     IconButton(onClick = {
-                        sliderPosition = 0f.coerceAtLeast(sliderPosition - 0.1f)
+                        commonValue = 0f.coerceAtLeast(commonValue - 0.1f)
+                        analogueSliderState.value = commonValue
+                        discreteSliderState.value = commonValue
                     }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back_24),
-                            contentDescription = ""
+                            contentDescription = null
                         )
                     }
                     IconButton(onClick = {
-                        sliderPosition = 0.5f
+                        commonValue = 0.5f
+                        analogueSliderState.value = commonValue
+                        discreteSliderState.value = commonValue
                     }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_refresh_24),
-                            contentDescription = ""
+                            contentDescription = null
                         )
                     }
                     IconButton(
                         onClick = {
-                            sliderPosition =
-                                (sliderPosition + 0.1f).coerceAtMost(1.0f)
+                            commonValue =
+                                (commonValue + 0.1f).coerceAtMost(1.0f)
+                            analogueSliderState.value = commonValue
+                            discreteSliderState.value = commonValue
                         },
                         modifier = Modifier.windowInsetsPadding(
                                 WindowInsets.safeGestures.only(WindowInsetsSides.End)
@@ -90,7 +111,7 @@ fun SliderSample() {
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_forward_24),
-                            contentDescription = ""
+                            contentDescription = null
                         )
                     }
                 }
@@ -106,12 +127,16 @@ fun SliderSample() {
                 .fillMaxSize()
         ) {
             Text(
-                text = String.format(Locale.JAPAN, "%.2f", sliderPosition),
+                text = String.format(Locale.JAPAN, "%.2f", commonValue),
                 modifier = Modifier
             )
             Slider(
-                value = sliderPosition,
-                onValueChange = { sliderPosition = it },
+                state = analogueSliderState,
+                onValueChange = {
+                    commonValue = it
+                    analogueSliderState.value = commonValue
+                    discreteSliderState.value = commonValue
+                },
                 modifier = Modifier.windowInsetsPadding(
                     WindowInsets.safeGestures.only(WindowInsetsSides.Horizontal)
                 )
@@ -119,7 +144,9 @@ fun SliderSample() {
             Row(modifier = Modifier) {
                 Button(
                     onClick = {
-                        sliderPosition = 0f.coerceAtLeast(sliderPosition - 0.1f)
+                        commonValue = 0f.coerceAtLeast(commonValue - 0.1f)
+                        analogueSliderState.value = commonValue
+                        discreteSliderState.value = commonValue
                     }
                 ) {
                     Text(
@@ -129,7 +156,9 @@ fun SliderSample() {
                 }
                 Button(
                     onClick = {
-                        sliderPosition = 0.5f
+                        commonValue = 0.5f
+                        analogueSliderState.value = commonValue
+                        discreteSliderState.value = commonValue
                     }
                 ) {
                     Text(
@@ -139,7 +168,9 @@ fun SliderSample() {
                 }
                 Button(
                     onClick = {
-                        sliderPosition = (sliderPosition + 0.1f).coerceAtMost(1.0f)
+                        commonValue = (commonValue + 0.1f).coerceAtMost(1.0f)
+                        analogueSliderState.value = commonValue
+                        discreteSliderState.value = commonValue
                     }
                 ) {
                     Text(
@@ -149,12 +180,13 @@ fun SliderSample() {
                 }
             }
         }
-    }}
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
-fun SliderSamplePreview() {
+fun PairedSliderPreview() {
     AppTheme {
-        SliderSample()
+        PairedSlider()
     }
 }
